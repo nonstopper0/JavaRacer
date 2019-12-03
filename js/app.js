@@ -28,7 +28,7 @@ const enemyLogic = () => {
     } else if (parseInt(enemy1.css('top')) > gameHeight) {
         enemy1.css('top', -100)
     }
-    if (score >= 30) {
+    if (score >= 60) {
         if (parseInt(enemy2.css('top')) == -100) {
             enemy2.css("left", Math.floor(Math.random()*gameWidth)-200);
             enemy2.css("top", parseInt(enemy2.css('top'))+1);
@@ -38,7 +38,17 @@ const enemyLogic = () => {
             enemy2.css('top', -100);
         }
     }
-    enemy3.css("left", Math.floor(Math.random()*gameWidth)-100);
+}
+
+const collisionDetection = () => {
+    carPosition = car.offset()
+    enemy1Position = enemy1.offset()
+    enemy2Position = enemy2.offset();
+    if (enemy1Position.top > 340) {
+        if (enemy1Position.left > (carPosition.left-70) && enemy1Position.left < (carPosition.left + 70)) {
+            console.log("colliding");
+    }
+}
 }
 
 $(() => {
@@ -47,8 +57,6 @@ $(() => {
 // dont want to pickup input if the game isnt running
 if (running == true) {
     $('body').on("keydown", (event) => {
-        console.log(car.position());
-        console.log(gameWidth);
         let key = event.keyCode;
         if (key == 39) {
             right = true;
@@ -73,7 +81,7 @@ const gameLoop = setInterval(() => {
     // check if game is running before accepting any paramters
     // basic controls
     if (running == true) {
-        if (left == true && car.position().left > 0) {
+        if (left == true && car.position().left > -50) {
             car.css("left", parseInt(car.css('left'))-speed);
         } else if (right == true && car.position().left < gameWidth-50) {
             car.css('left', parseInt(car.css('left'))+speed);
@@ -84,5 +92,6 @@ const gameLoop = setInterval(() => {
         speed = +10;
     }
     enemyLogic();
-}, 50)
+    collisionDetection();
+}, 1000/40)
 });
