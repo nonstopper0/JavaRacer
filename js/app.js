@@ -16,7 +16,7 @@ let left = false;
 let time = 0;
 
 setInterval(() => {
-    score += 0;
+    score += 1;
 }, 1000)
 
 const enemyLogic = () => {
@@ -41,20 +41,14 @@ const enemyLogic = () => {
     enemy3.css("left", Math.floor(Math.random()*gameWidth)-100);
 }
 
-const messenger = (message) => {
-    if (parseInt(enemy1.css('top')) == -100) {
-        let $h2 = $(`<h2>${message}</h2>`)
-        gameWindow.append($h2)
-        $h2.delay(1000).fadeOut();
-    }
-}
-
 $(() => {
 
 // key input detection using jquey
 // dont want to pickup input if the game isnt running
 if (running == true) {
     $('body').on("keydown", (event) => {
+        console.log(car.position());
+        console.log(gameWidth);
         let key = event.keyCode;
         if (key == 39) {
             right = true;
@@ -79,18 +73,16 @@ const gameLoop = setInterval(() => {
     // check if game is running before accepting any paramters
     // basic controls
     if (running == true) {
-        if (left == true && car.position().left > 70) {
+        if (left == true && car.position().left > 0) {
             car.css("left", parseInt(car.css('left'))-speed);
-        } else if (right == true && car.position().left < gameWidth+20) {
+        } else if (right == true && car.position().left < gameWidth-50) {
             car.css('left', parseInt(car.css('left'))+speed);
         }
     }
     // change the cars speed based upon score 
-    if (score ==0 ) {
-        messenger("You have reedwdadawdawdawdawdaached level 60, we have upgrade your movement")
+    if (score == 60) {
         speed = +10;
     }
     enemyLogic();
-    console.log(score);
 }, 50)
 });
