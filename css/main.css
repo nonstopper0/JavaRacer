@@ -18,14 +18,25 @@ header h1 {
     justify-content: center;
     margin: 40px;
 }
-.game {
+#game{
+    display: flex;
     flex-shrink: 0;
-    width: 900px;
-    height: 600px;
-    background-color: black;
-    border: 1px solid white;
+    height: 400px;
+    width: 500px;
+    border: 2px solid white;
+    overflow: hidden;
 }
 aside {
     width: 150px;
     margin-right: 20px;
+}
+#car {
+    position: relative;
+    background: url('../Images/JavaRacerVehicle.png');
+    height: 100px;
+    width: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 80%;
+    left: 40px;
 }
