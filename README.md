@@ -9,3 +9,5 @@ When the user presses the left or right key: the car will move left / right.
 The camera will be static and not move, instead the enviorment will be moving downwards towards the vehicle object.
 Score is counted by how long you survive dodging randomly generated objects.
 Upgrades are something i would like to add after initial development including things like: your total score can be used to upgrade your vehicles speed and agility either within that game session or spanning across sessions somehow (would probably need a database for that)
+
+Trello link: https://trello.com/b/By7l0D8S/javaracer
