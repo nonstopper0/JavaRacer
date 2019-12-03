@@ -13,6 +13,12 @@ header {
 header h1 {
     margin: 3px;
 }
+h2 {
+    padding: 20px;
+    position: absolute;
+    margin: 5px;
+    text-shadow: 3px 2px black;
+}
 .main-window {
     display: flex;
     justify-content: center;
@@ -39,4 +45,11 @@ aside {
     background-repeat: no-repeat;
     top: 80%;
     left: 40px;
+}
+.enemy {
+    top: -100px;
+    position: relative;
+    background-color: white;
+    height: 100px;
+    width: 100px;
 }
