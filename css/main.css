@@ -1,0 +1,31 @@
+body {
+    font-family: 'Bebas Neue', cursive;
+    margin: 0px;
+    background-color: rgb(25,25,25);
+    color: white;
+}
+header {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    border-bottom: 3px solid white;
+}
+header h1 {
+    margin: 3px;
+}
+.main-window {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+.game {
+    flex-shrink: 0;
+    width: 900px;
+    height: 600px;
+    background-color: black;
+    border: 1px solid white;
+}
+aside {
+    width: 150px;
+    margin-right: 20px;
+}
