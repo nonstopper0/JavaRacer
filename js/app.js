@@ -21,7 +21,7 @@ let left = false;
 
 const enemyLogic = () => {
     if (parseInt(enemy1.css('top')) == -100) {
-        enemy1.css("left", Math.floor(Math.random()*gameWidth)-100);
+        enemy1.css("left", Math.floor(Math.random()*gameWidth)-250);
         enemy1.css("top", parseInt(enemy1.css("top"))+1);
     } if (parseInt(enemy1.css('top')) >= -99 && parseInt(enemy1.css('top')) <gameHeight) {
         enemy1.css("top", parseInt(enemy1.css("top"))+enemySpeed);
@@ -29,10 +29,10 @@ const enemyLogic = () => {
         enemy1.css('top', -100)
         console.log('reset')
     }
-    if (score >= 60) {
+    if (score >= 1000) {
         if (parseInt(enemy2.css('top')) == -100) {
-            enemy2.css("left", Math.floor(Math.random()*gameWidth)-200);
-            enemy2.css("top", parseInt(enemy2.css('top'))+1);
+            enemy2.css("left", Math.floor(Math.random()*gameWidth)-250);
+            enemy2.css("top", parseInt(enemy2.css('top'))+1);;
         } if (parseInt(enemy2.css('top')) >= -99 && parseInt(enemy2.css('top')) <gameHeight) {
             enemy2.css("top", parseInt(enemy1.css("top"))+enemySpeed);
         } else {
@@ -61,7 +61,7 @@ const collisionDetection = () => {
 const gameSpeed = (modifier) => {
     console.log(gameSpeedCount);
     console.log(scoreModifier);
-    if (gameSpeedCount > 200 && ((gameSpeedCount+modifier) > 200) && (gameSpeedCount < 750 && (gameSpeedCount+modifier) < 750)) {
+    if (gameSpeedCount > 100 && ((gameSpeedCount+modifier) > 100) && (gameSpeedCount < 750 && (gameSpeedCount+modifier) < 750)) {
         currentGmSpeed = gameSpeedCount + modifier;
         if (currentGmSpeed < gameSpeedCount) {
             scoreModifier += 2;
@@ -102,11 +102,26 @@ $(() => {
             left = true;
             right = false;
         } else if (key == 38) {
+            event.preventDefault();
             gameSpeed(-50);
         } else if (key ==40) {
+            event.preventDefault();
             gameSpeed(50);
         }
     })
+    $('body').on('keyup', (event) => {
+        let key = event.keyCode;
+        if (key == 39) {
+            right = false;
+            if (left == false && right == false) {
+                car.css('transform', 'rotate(0deg)');
+            }
+        } else if (key == 37) {
+            left = false;
+            if (left == false && right == false) {
+                car.css('transform', 'rotate(0deg)');
+            }
+        }})
 
     // count the score every second and only count while game is running
     setInterval(() => {
@@ -121,11 +136,11 @@ $(() => {
         // check if game is running before accepting any paramters
         // basic controls
         if (running == true) {
-            if (left == true && car.position().left > -50) {
+            if (left == true && car.position().left > -10) {
                 car.css("left", parseInt(car.css('left'))-speed);
-            } else if (right == true && car.position().left < gameWidth-50) {
+            } else if (right == true && car.position().left < gameWidth-100) {
                 car.css('left', parseInt(car.css('left'))+speed);
-            } 
+            }
 
             enemyLogic();
             collisionDetection();
