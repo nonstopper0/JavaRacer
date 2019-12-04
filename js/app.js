@@ -13,7 +13,6 @@ let score = 0;
 let running = true;
 let right = false;
 let left = false;
-let time = 0;
 
 setInterval(() => {
     score += 1;ƒ
