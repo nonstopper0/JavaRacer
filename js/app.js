@@ -16,7 +16,7 @@ let left = false;
 let time = 0;
 
 setInterval(() => {
-    score += 1;
+    score += 1;ƒ
 }, 1000)
 
 const enemyLogic = () => {
