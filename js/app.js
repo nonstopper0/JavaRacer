@@ -68,13 +68,16 @@ $(() => {
     $('body').on("keydown", (event) => {
         let key = event.keyCode;
         if (key == 39) {
+            car.css('transform', 'rotate(15deg)');
             right = true;
         } else if (key == 37) {
+            car.css('transform', 'rotate(-15deg)');
             left = true;
         }
     })
     $('body').on('keyup', (event) => {
         let key = event.keyCode;
+        car.css('transform', 'rotate(0deg)');
         if (key == 39) {
             right = false;
         } else if (key == 37) {
@@ -100,7 +103,7 @@ const gameLoop = setInterval(() => {
             car.css("left", parseInt(car.css('left'))-speed);
         } else if (right == true && car.position().left < gameWidth-50) {
             car.css('left', parseInt(car.css('left'))+speed);
-        }
+        } 
 
         if (score == 30) {
             enemySpeed = 7;
