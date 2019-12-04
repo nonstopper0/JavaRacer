@@ -5,15 +5,16 @@ let enemies = $('.enemy');
 let enemy1 = $('#enemy1');
 let enemy2 = $('#enemy2');
 let enemy3 = $('#enemy3');
-let enemySpeed = 0;
+let enemySpeed = 4;
 let gameWidth = parseInt(gameWindow.width());
 let gameHeight = parseInt(gameWindow.height());
 let speed = 4;
-// start the road animation speed at a thousand
-let gameSpeedCount = 600;
+// start the road animation speed at :
+let gameSpeedCount = 700;
 let score = 0;
 let scoreCounter = $('#score-counter');
 let startButton = $('button');
+let scoreModifier = 2;
 let running = false;
 let right = false;
 let left = false;
@@ -22,20 +23,22 @@ const enemyLogic = () => {
     if (parseInt(enemy1.css('top')) == -100) {
         enemy1.css("left", Math.floor(Math.random()*gameWidth)-100);
         enemy1.css("top", parseInt(enemy1.css("top"))+1);
-    } else if (parseInt(enemy1.css('top')) >= -99 && parseInt(enemy1.css('top')) <gameHeight) {
+    } if (parseInt(enemy1.css('top')) >= -99 && parseInt(enemy1.css('top')) <gameHeight) {
         enemy1.css("top", parseInt(enemy1.css("top"))+enemySpeed);
-    } else if (parseInt(enemy1.css('top')) > gameHeight) {
+    } else {
         enemy1.css('top', -100)
+        console.log('reset')
     }
     if (score >= 60) {
         if (parseInt(enemy2.css('top')) == -100) {
             enemy2.css("left", Math.floor(Math.random()*gameWidth)-200);
             enemy2.css("top", parseInt(enemy2.css('top'))+1);
-        } else if (parseInt(enemy2.css('top')) >= -99 && parseInt(enemy2.css('top')) <gameHeight) {
+        } if (parseInt(enemy2.css('top')) >= -99 && parseInt(enemy2.css('top')) <gameHeight) {
             enemy2.css("top", parseInt(enemy1.css("top"))+enemySpeed);
-        } else if (parseInt(enemy2.css('top')) > gameHeight) {
+        } else {
             enemy2.css('top', -100);
-        }
+            console.log('reset')
+        } 
     }
 }
 
@@ -54,29 +57,35 @@ const collisionDetection = () => {
     }
 }
 }
-
+// game speed modifier called from up and down button key pushes
 const gameSpeed = (modifier) => {
-    if (gameSpeedCount > 101) {
+    console.log(gameSpeedCount);
+    console.log(scoreModifier);
+    if (gameSpeedCount > 200 && ((gameSpeedCount+modifier) > 200) && (gameSpeedCount < 750 && (gameSpeedCount+modifier) < 750)) {
         currentGmSpeed = gameSpeedCount + modifier;
-        gameSpeedCount = currentGmSpeed;
-    }
-    if (currentGmSpeed < gameSpeedCount) {
-        enemySpeed += .5;
-    } else {
-        console.log('else')
-        if (enemySpeed >= 0) {
-            console.log("elif");
-            enemySpeed += .5;
+        if (currentGmSpeed < gameSpeedCount) {
+            scoreModifier += 2;
+            enemySpeed += .9;
+            speed += .5;
+        } else if (currentGmSpeed > gameSpeedCount) {
+            if (enemySpeed >= 0 && speed >= 0) {
+                speed -= .5;
+                enemySpeed -= .9;
+                if (scoreModifier > 2) {
+                    coreModifier = scoreModifier -= 2;
+                }
+            }
         }
     }
+    gameSpeedCount = currentGmSpeed;
     gameWindow.css("animation", `animatedBackground ${currentGmSpeed}s linear infinite`);
 }
 $(() => {
-
+    // BEGGINNING GAME LOGIC, starts it off
     startButton.on('click', ()=> {
         running = true
         startButton.css('visibility', 'hidden');
-        gameWindow.css("animation", "animatedBackground 600s linear infinite");
+        gameWindow.css("animation", `animatedBackground ${gameSpeedCount}s linear infinite`);
     });
 
 // key input detection using jquey
@@ -93,20 +102,18 @@ $(() => {
             left = true;
             right = false;
         } else if (key == 38) {
-            console.log(gameSpeedCount);
-            gameSpeed(-20);
+            gameSpeed(-50);
         } else if (key ==40) {
-            console.log(gameSpeedCount)
-            gameSpeed(20);
+            gameSpeed(50);
         }
     })
 
     // count the score every second and only count while game is running
     setInterval(() => {
         if (running == true) {
-        score += 5;
+        score += scoreModifier;
         let scoreP = $('#score');
-        scoreP.text(score)
+        scoreP.text(Math.floor(score))
         }
     }, 1000)
 
@@ -119,16 +126,6 @@ $(() => {
             } else if (right == true && car.position().left < gameWidth-50) {
                 car.css('left', parseInt(car.css('left'))+speed);
             } 
-
-            // if (score == 30) {
-            //     speed = 5;
-            //     enemySpeed = 8;
-            //     gameWindow.css('animation', "animatedBackground 40s linear infinite")
-            // } else if (score == 60) {
-            //     enemySpeed = 9; 
-            //     speed = 7;
-            //     gameWindow.css('animation', "animatedBackground 37s linear infinite");
-            // }
 
             enemyLogic();
             collisionDetection();
