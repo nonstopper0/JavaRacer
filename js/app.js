@@ -11,6 +11,8 @@ let enemySpeed = 4;
 let gameWidth = parseInt(gameWindow.width());
 let gameHeight = parseInt(gameWindow.height());
 let speed = 4;
+// car speed variable was instroduced so i could revert back to the dynmaically changed speed number from modifying it with the handbrake
+let carSpeed = 4;
 // start the road animation speed at :
 let gameSpeedCount = 700;
 let score = 0;
@@ -18,6 +20,7 @@ let scoreCounter = $('#score-counter');
 let startButton = $('button');
 let scoreModifier = 2;
 let running = false;
+let handbrake = false;
 let right = false;
 let left = false;
 
@@ -68,11 +71,11 @@ const gameSpeed = (modifier) => {
         if (currentGmSpeed < gameSpeedCount) {
             scoreModifier += 2;
             enemySpeed += .95;
-            speed += .5;
+            carSpeed += .5;
         // if key is not down which would result in the code above, run code below
         } else if (currentGmSpeed > gameSpeedCount) {
             if (enemySpeed >= 0 && speed >= 0) {
-                speed -= .5;
+                carSpeed -= .5;
                 enemySpeed -= .95;
                 if (scoreModifier > 2) {
                     coreModifier = scoreModifier -= 2;
@@ -80,6 +83,7 @@ const gameSpeed = (modifier) => {
             }
         }
     }
+    speed = carSpeed;
     gameSpeedCount = currentGmSpeed;
     gameWindow.css("animation", `animatedBackground ${currentGmSpeed}s linear infinite`);
 }
@@ -96,6 +100,7 @@ $(() => {
 
     // keydown moves player and sets left and right events
     $('body').on("keydown", (event) => {
+        event.preventDefault();
         let key = event.keyCode;
         if (key == 39) {
             car.css('transform', 'rotate(13deg)');
@@ -106,11 +111,17 @@ $(() => {
             left = true;
             right = false;
         } else if (key == 38) {
-            event.preventDefault();
             gameSpeed(-50);
-        } else if (key ==40) {
-            event.preventDefault();
+        } else if (key == 40) {
             gameSpeed(50);
+        } else if (key == 32) {
+            handbrake = true;
+            speed = 15;
+            if (right == true) {
+                car.css('transform', 'rotate(35deg)');
+            } if (left == true) {
+                car.css('transform', 'rotate(-35deg)');
+            }
         }
     })
     //stop moving on keyup 
@@ -126,17 +137,28 @@ $(() => {
             if (left == false && right == false) {
                 car.css('transform', 'rotate(0deg)');
             }
-        }})
+        } else if (key == 32) {
+            handbrake = false;
+            speed = carSpeed;
+            if (right == true) {
+                car.css('transform', 'rotate(13deg)');
+            } if (left == true) {
+                car.css('transform', 'rotate(-13deg)');
+            }
+        }
+        })
 
     // count the score every second and only count while game is running
     // also display score to screen using JQuery
     setInterval(() => {
         if (running == true) {
-        score += scoreModifier;
-        let scoreP = $('#score');
-        let scoreM = $('#multiplier')
-        scoreP.text(Math.floor(score))
-        scoreM.text("x" + scoreModifier);
+            if (handbrake == false) {
+                score += scoreModifier;
+            }
+            let scoreP = $('#score');
+            let scoreM = $('#multiplier')
+            scoreP.text(Math.floor(score))
+            scoreM.text("x" + scoreModifier);
         }
     }, 1000)
 

@@ -16,6 +16,7 @@ header {
 header h1 {
     margin: 3px;
     letter-spacing: 2px;
+    letter-spacing: 5px;
 }
 h2 {
     font-size: 40px;
