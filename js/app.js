@@ -6,7 +6,6 @@ let gameWindow = $('#game');
 let enemies = $('.enemy');
 let enemy1 = $('#enemy1');
 let enemy2 = $('#enemy2');
-let enemy3 = $('#enemy3');
 let enemySpeed = 4;
 let gameWidth = parseInt(gameWindow.width());
 let gameHeight = parseInt(gameWindow.height());
@@ -17,7 +16,7 @@ let carSpeed = 4;
 let gameSpeedCount = 700;
 let score = 0;
 let scoreCounter = $('#score-counter');
-let startButton = $('button');
+let startButton = $('#start');
 let scoreModifier = 2;
 let running = false;
 let handbrake = false;
@@ -94,6 +93,8 @@ $(() => {
         startButton.css('visibility', 'hidden');
         gameWindow.css("animation", `animatedBackground ${gameSpeedCount}s linear infinite`);
     });
+
+    // settings button modifiers
 
 // key input detection using jquey
 // dont want to pickup input if the game isnt running

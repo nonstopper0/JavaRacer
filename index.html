@@ -6,35 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
-    <title>Document</title>
+    <title>JavaRacer</title>
 </head>
 <body>
     <header> 
-        <h1>JavaRacer</h1>
+        <a id="settings" href="settings.html">SETTINGS</a>
+            <h1>JavaRacer</h1>
+        <a id="author" href="https://www.Nathanielredmon.com">AUTHOR</a>
     </header>
     <div class="main-window">
         <aside>
             <h3>Welcome to JavaRacer</h3>
-            <p>
-            The higher the speed, the higher the score multiplier!<br>
-            There are 5 controls you need to know<br>
-            Left Arrow - moves you left<br>
-            Right Arrow - moves you right<br>
-            Up Arrow - moves you faster!<br>
-            Down Arrow - slows you down!<br>
-            Space Bar - Handbrake for quicker turning <br>
-            <br><br>
-            Avoid the cones at ALL COSTS! <br>
-            While using the handbrake, your score will not grow! <br> 
-            more cones will come at 1000<br><br> 
-            </p>
+                <p>
+                The higher the speed, the higher the score multiplier!<br>
+                There are 5 controls you need to know<br>
+                Left Arrow - moves you left<br>
+                Right Arrow - moves you right<br>
+                Up Arrow - moves you faster!<br>
+                Down Arrow - slows you down!<br>
+                Space Bar - Handbrake for quicker turning <br>
+                <br><br>
+                Avoid the cones at ALL COSTS! <br>
+                While using the handbrake, your score will not grow! <br> 
+                more cones will come at 1000<br><br> 
+                </p>
         </aside>
         <div id="game">
-            <button type="button">START</button>
+            <button type="button" id="start">START</button>
             <div id="car"></div>
             <div class="enemy" id="enemy1"></div>
             <div class="enemy" id="enemy2"></div>
-            <div class="enemy" id="enemy3"></div>
             <div id="score-counter">
                 <p id="score"></p>
                 <p id="multiplier"></p>
