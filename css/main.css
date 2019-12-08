@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Bebas Neue', cursive;
     margin: 0px;
@@ -32,30 +33,32 @@ h2 {
     font-size: 40px;
     text-shadow: 2px 2px black;
 }
-h3 {
-    margin: 0px;
-    text-align: center;
-    font-size: 30px;
-}
-.settings-window {
-    height: 300px;
+.about-window {
+    height: 500px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    flex-direction: row;
     margin: 30px;
     padding: 15px;
+    padding-left: 50px;
     background-color: rgba(0, 0, 0, 0.7);
     border: 2px solid white;
 }
-.selection {
-    margin-top: 30px;
+.about-window h3 {
+    text-align: center;
+    margin: 0px;
+    font-size: 50px;
+    height: 40px;
 }
-.selection button {
-    width: 300px;
-    font-size: 20px;
-    background-color: rgb(218, 218, 218);
-    border: 3px solid lightgray;
-    border-bottom: 5px solid darkgray;
+.about-window p {
+    font-size: 30px;
+}
+#instructions {
+    margin: 40px;
+}
+#controls {
+    margin: 40px;
 }
 .main-window {
     display: flex;
