@@ -1,4 +1,4 @@
-// thank you for looking at my code ;)
+// thank you for looking at my code :')
 
 // delcare all variables
 let car = $('#car')
@@ -12,7 +12,7 @@ let gameHeight = parseInt(gameWindow.height());
 let speed = 4;
 // car speed variable was instroduced so i could revert back to the dynmaically changed speed number from modifying it with the handbrake
 let carSpeed = 4;
-// start the road animation speed at :
+// start the road animation speed at gameSpeedCount
 let gameSpeedCount = 700;
 let score = 0;
 let scoreCounter = $('#score-counter');
@@ -33,6 +33,7 @@ const enemyLogic = () => {
     } else {
         enemy1.css('top', -100)
     }
+    // spawn second enemy logic
     if (score >= 1000) {{
         if (parseInt(enemy2.css('top')) == -100) {
             enemy2.css("left", Math.floor(Math.random()*gameWidth)-350);
@@ -46,11 +47,12 @@ const enemyLogic = () => {
     }
 }
 
-// detect collision by getting enemys offset and comparing them to the cars current position
+// detect collision by getting enemys offset(location) and comparing them to the cars current position
 const collisionDetection = () => {
     carPosition = car.offset()
     enemy1Position = enemy1.offset()
     enemy2Position = enemy2.offset();
+    // these if statements only run if the enemy is level with the player, preventing collision being detected when the cone is not near the play on the y axis
     if (enemy1Position.top > 360 && enemy1Position.top < 440) {
         if (enemy1Position.left > (carPosition.left-50) && enemy1Position.left < (carPosition.left + 60)) {
             running = false;
@@ -67,11 +69,12 @@ const gameSpeed = (modifier) => {
     // check variables to not go below 90s second animation and no go over 750s
     if (gameSpeedCount > 90 && ((gameSpeedCount+modifier) > 90) && (gameSpeedCount < 750 && (gameSpeedCount+modifier) < 750)) {
         currentGmSpeed = gameSpeedCount + modifier;
+        // run code below if key is the up arrow
         if (currentGmSpeed < gameSpeedCount) {
             scoreModifier += 2;
             enemySpeed += .95;
             carSpeed += .5;
-        // if key is not down which would result in the code above, run code below
+        // if key is not up which would result in the code above, run code below which will decreate values
         } else if (currentGmSpeed > gameSpeedCount) {
             if (enemySpeed >= 0 && speed >= 0) {
                 carSpeed -= .5;
@@ -82,6 +85,7 @@ const gameSpeed = (modifier) => {
             }
         }
     }
+    // change the corresponding varaibles after running through the tests above
     speed = carSpeed;
     gameSpeedCount = currentGmSpeed;
     gameWindow.css("animation", `animatedBackground ${currentGmSpeed}s linear infinite`);
@@ -94,28 +98,34 @@ $(() => {
         gameWindow.css("animation", `animatedBackground ${gameSpeedCount}s linear infinite`);
     });
 
-    // settings button modifiers
-
 // key input detection using jquey
-// dont want to pickup input if the game isnt running
 
-    // keydown moves player and sets left and right events
+    // keydown moves player and sets left, right, up and down events
     $('body').on("keydown", (event) => {
         event.preventDefault();
         let key = event.keyCode;
+        // right arrow
         if (key == 39) {
             car.css('transform', 'rotate(13deg)');
             right = true;
             left = false;
-        } else if (key == 37) {
+        }
+        // left arrow
+        else if (key == 37) {
             car.css('transform', 'rotate(-13deg)');
             left = true;
             right = false;
-        } else if (key == 38) {
+        } 
+        // up arrow
+        else if (key == 38) {
             gameSpeed(-50);
-        } else if (key == 40) {
+        } 
+        // down arrow
+        else if (key == 40) {
             gameSpeed(50);
-        } else if (key == 32) {
+        } 
+        // space bar 
+        else if (key == 32) {
             handbrake = true;
             speed = 15;
             if (right == true) {
@@ -128,16 +138,19 @@ $(() => {
     //stop moving on keyup 
     $('body').on('keyup', (event) => {
         let key = event.keyCode;
+        // right arrow
         if (key == 39) {
             right = false;
             if (left == false && right == false) {
                 car.css('transform', 'rotate(0deg)');
             }
+        // left arrow
         } else if (key == 37) {
             left = false;
             if (left == false && right == false) {
                 car.css('transform', 'rotate(0deg)');
             }
+        // spacebar / handbrake
         } else if (key == 32) {
             handbrake = false;
             speed = carSpeed;
@@ -163,7 +176,7 @@ $(() => {
         }
     }, 1000)
 
-    // run functions and listen for running
+    // where all my functions are run and the framerate is set
     const gameLoop = setInterval(() => {
         // check if game is running before accepting any paramters
         // basic controls
