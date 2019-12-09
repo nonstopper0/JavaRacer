@@ -63,6 +63,7 @@ h2 {
     height: 400px;
     width: 600px;
     border: 10px solid white;
+    border-bottom: 10px solid lightgray;
     overflow: hidden;
     top: 0;
     left: 0;
