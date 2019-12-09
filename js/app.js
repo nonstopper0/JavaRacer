@@ -60,20 +60,25 @@ const enemy3Logic = () => {
 // detect collision by getting enemys offset(location) and comparing them to the cars current position
 const collisionDetection = () => {
     carPosition = car.offset()
-    enemy1Position = enemy1.offset()
+    enemy1Position = enemy1.offset();
     enemy2Position = enemy2.offset();
+    enemy3Position = enemy3.offset();
     // these if statements only run if the enemy is level with the player, preventing collision being detected when the cone is not near the play on the y axis
-    if (enemy1Position.top > 360 && enemy1Position.top < 440) {
+    if (enemy1Position.top > 380 && enemy1Position.top < 440) {
         if (enemy1Position.left > (carPosition.left-50) && enemy1Position.left < (carPosition.left + 60)) {
             running = false;
         } 
-    else if (enemy2Position.top > 360 && enemy2Position.top < 440) {
+    else if (enemy2Position.top > 380 && enemy2Position.top < 440) {
         if (enemy2Position.left > (carPosition.left-50) && enemy2Position.left < (carPosition.left + 60)) {
             running = false;
         }
+    else if (enemy3Position.top > 380 && enemy3Position.top < 440) {
+        if (enemy3Position.left > (carPosition.left-50) && enemy3Position.left < (carPosition.left + 60)) {
+            running = false;
+        }
     }
-}
-}
+}}}
+
 // game speed modifier called from up and down button key pushes
 const gameSpeed = (modifier) => {
     // check variables to not go below 90s second animation and no go over 750s
