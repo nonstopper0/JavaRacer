@@ -5,6 +5,7 @@ let car = $('#car')
 let gameWindow = $('#game');
 let enemy1 = $('#enemy1');
 let enemy2 = $('#enemy2');
+let enemy3 = $('#enemy3');
 let enemySpeed = 4;
 let gameWidth = parseInt(gameWindow.width());
 let gameHeight = parseInt(gameWindow.height());
@@ -41,6 +42,17 @@ const enemy2Logic = () => {
         enemy2.css("top", parseInt(enemy2.css("top"))+enemySpeed);
     } else  {
         enemy2.css('top', -100);
+    } 
+}
+
+const enemy3Logic = () => {
+    if (parseInt(enemy3.css('top')) == -100) {
+        enemy3.css("left", Math.floor(Math.random()*gameWidth)-350);
+        enemy3.css("top", parseInt(enemy3.css('top'))+1);;
+    } else if (parseInt(enemy3.css('top')) >= -99 && parseInt(enemy3.css('top')) < gameHeight) {
+        enemy3.css("top", parseInt(enemy3.css("top"))+enemySpeed);
+    } else  {
+        enemy3.css('top', -100);
     } 
 }
 
@@ -189,6 +201,9 @@ $(() => {
             enemyLogic();
             if (score >= 500) {
                 enemy2Logic();
+            } 
+            if (score >= 1000) {
+                enemy3Logic();
             }
             collisionDetection();
 
