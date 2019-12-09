@@ -63,7 +63,6 @@ const collisionDetection = () => {
     enemy1Position = enemy1.offset();
     enemy2Position = enemy2.offset();
     enemy3Position = enemy3.offset();
-    console.log(enemy3Position);
     // these if statements only run if the enemy is level with the player, preventing collision being detected when the cone is not near the play on the y axis
     if (enemy1Position.top > 380 && enemy1Position.top < 440) {
         if (enemy1Position.left > (carPosition.left-50) && enemy1Position.left < (carPosition.left + 60)) {
