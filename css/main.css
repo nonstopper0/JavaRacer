@@ -147,17 +147,7 @@ footer span {
     top: 75%;
     left: 40px;
 }
-#enemy1 {
-    top: -100px;
-    position: relative;
-    background: url('../Images/cone.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    filter: drop-shadow(15px -5px 2px rgba(0, 0, 0, 0.637));
-    height: 100px;
-    width: 100px;
-}
-#enemy2 {
+.enemy {
     top: -100px;
     position: relative;
     background: url('../Images/cone.png');

@@ -185,7 +185,6 @@ $(() => {
                 car.css('left', parseInt(car.css('left'))+speed);
             }
 
-            console.log(parseInt(enemy2.css('top')));
             enemyLogic();
             if (score >= 500) {
                 enemy2Logic();
