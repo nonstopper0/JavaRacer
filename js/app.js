@@ -3,7 +3,6 @@
 // delcare all variables
 let car = $('#car')
 let gameWindow = $('#game');
-let enemies = $('.enemy');
 let enemy1 = $('#enemy1');
 let enemy2 = $('#enemy2');
 let enemySpeed = 4;
@@ -28,24 +27,23 @@ const enemyLogic = () => {
     if (parseInt(enemy1.css('top')) == -100) {
         enemy1.css("left", Math.floor(Math.random()*gameWidth)-250);
         enemy1.css("top", parseInt(enemy1.css("top"))+1);
-    } if (parseInt(enemy1.css('top')) >= -99 && parseInt(enemy1.css('top')) <gameHeight) {
+    } if (parseInt(enemy1.css('top')) >= -99 && parseInt(enemy1.css('top')) < gameHeight) {
         enemy1.css("top", parseInt(enemy1.css("top"))+enemySpeed);
     } else {
         enemy1.css('top', -100)
     }
-    // spawn second enemy logic
-    if (score >= 1000) {{
-        if (parseInt(enemy2.css('top')) == -100) {
-            enemy2.css("left", Math.floor(Math.random()*gameWidth)-350);
-            enemy2.css("top", parseInt(enemy2.css('top'))+1);;
-        } else if (parseInt(enemy2.css('top')) >= -99 && parseInt(enemy2.css('top')) <gameHeight) {
-            enemy2.css("top", parseInt(enemy1.css("top"))+enemySpeed);
-        } else  {
-            enemy2.css('top', -100);
-        } 
-    }
-    }
 }
+const enemy2Logic = () => {
+    if (parseInt(enemy2.css('top')) == -100) {
+        enemy2.css("left", Math.floor(Math.random()*gameWidth)-350);
+        enemy2.css("top", parseInt(enemy2.css('top'))+1);;
+    } else if (parseInt(enemy2.css('top')) >= -99 && parseInt(enemy2.css('top')) < gameHeight) {
+        enemy2.css("top", parseInt(enemy2.css("top"))+enemySpeed);
+    } else  {
+        enemy2.css('top', -100);
+    } 
+}
+
 
 // detect collision by getting enemys offset(location) and comparing them to the cars current position
 const collisionDetection = () => {
@@ -80,7 +78,7 @@ const gameSpeed = (modifier) => {
                 carSpeed -= .5;
                 enemySpeed -= .95;
                 if (scoreModifier > 2) {
-                    coreModifier = scoreModifier -= 2;
+                    scoreModifier = scoreModifier -= 2;
                 }
             }
         }
@@ -93,7 +91,7 @@ const gameSpeed = (modifier) => {
 $(() => {
     // BEGGINNING GAME LOGIC, starts it off
     startButton.on('click', ()=> {
-        running = true
+        running = true;
         startButton.css('visibility', 'hidden');
         gameWindow.css("animation", `animatedBackground ${gameSpeedCount}s linear infinite`);
     });
@@ -129,9 +127,9 @@ $(() => {
             handbrake = true;
             speed = 15;
             if (right == true) {
-                car.css('transform', 'rotate(35deg)');
+                car.css('transform', 'rotate(32deg)');
             } if (left == true) {
-                car.css('transform', 'rotate(-35deg)');
+                car.css('transform', 'rotate(-32deg)');
             }
         }
     })
@@ -187,7 +185,11 @@ $(() => {
                 car.css('left', parseInt(car.css('left'))+speed);
             }
 
+            console.log(parseInt(enemy2.css('top')));
             enemyLogic();
+            if (score >= 500) {
+                enemy2Logic();
+            }
             collisionDetection();
 
             if (running == false) {
@@ -198,4 +200,3 @@ $(() => {
         // 30 frames a second
     }, 1000/30)
 });
-
