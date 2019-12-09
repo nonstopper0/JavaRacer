@@ -101,63 +101,64 @@ $(() => {
     // keydown moves player and sets left, right, up and down events
     $('body').on("keydown", (event) => {
         event.preventDefault();
-        let key = event.keyCode;
-        // right arrow
-        if (key == 39) {
-            car.css('transform', 'rotate(13deg)');
-            right = true;
-            left = false;
-        }
-        // left arrow
-        else if (key == 37) {
-            car.css('transform', 'rotate(-13deg)');
-            left = true;
-            right = false;
-        } 
-        // up arrow
-        else if (key == 38) {
-            gameSpeed(-50);
-        } 
-        // down arrow
-        else if (key == 40) {
-            gameSpeed(50);
-        } 
-        // space bar 
-        else if (key == 32) {
-            handbrake = true;
-            speed = 15;
-            if (right == true) {
-                car.css('transform', 'rotate(32deg)');
-            } if (left == true) {
-                car.css('transform', 'rotate(-32deg)');
-            }
-        }
-    })
-    //stop moving on keyup 
-    $('body').on('keyup', (event) => {
-        let key = event.keyCode;
-        // right arrow
-        if (key == 39) {
-            right = false;
-            if (left == false && right == false) {
-                car.css('transform', 'rotate(0deg)');
-            }
-        // left arrow
-        } else if (key == 37) {
-            left = false;
-            if (left == false && right == false) {
-                car.css('transform', 'rotate(0deg)');
-            }
-        // spacebar / handbrake
-        } else if (key == 32) {
-            handbrake = false;
-            speed = carSpeed;
-            if (right == true) {
+        if (running) {
+            let key = event.keyCode;
+            // right arrow
+            if (key == 39) {
                 car.css('transform', 'rotate(13deg)');
-            } if (left == true) {
-                car.css('transform', 'rotate(-13deg)');
+                right = true;
+                left = false;
             }
-        }
+            // left arrow
+            else if (key == 37) {
+                car.css('transform', 'rotate(-13deg)');
+                left = true;
+                right = false;
+            } 
+            // up arrow
+            else if (key == 38) {
+                gameSpeed(-50);
+            } 
+            // down arrow
+            else if (key == 40) {
+                gameSpeed(50);
+            } 
+            // space bar 
+            else if (key == 32) {
+                handbrake = true;
+                speed = 15;
+                if (right == true) {
+                    car.css('transform', 'rotate(32deg)');
+                } if (left == true) {
+                    car.css('transform', 'rotate(-32deg)');
+                }
+            }
+        }})
+        //stop moving on keyup 
+        $('body').on('keyup', (event) => {
+            let key = event.keyCode;
+            // right arrow
+            if (key == 39) {
+                right = false;
+                if (left == false && right == false) {
+                    car.css('transform', 'rotate(0deg)');
+                }
+            // left arrow
+            } else if (key == 37) {
+                left = false;
+                if (left == false && right == false) {
+                    car.css('transform', 'rotate(0deg)');
+                }
+            // spacebar / handbrake
+            } else if (key == 32) {
+                handbrake = false;
+                speed = carSpeed;
+                if (right == true) {
+                    car.css('transform', 'rotate(13deg)');
+                } if (left == true) {
+                    car.css('transform', 'rotate(-13deg)');
+                }
+            }
         })
 
     // count the score every second and only count while game is running
