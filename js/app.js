@@ -108,11 +108,12 @@ const gameSpeed = (modifier) => {
     gameSpeedCount = currentGmSpeed;
     gameWindow.css("animation", `animatedBackground ${currentGmSpeed}s linear infinite`);
 }
+
 $(() => {
     // BEGGINNING GAME LOGIC, starts it off
     startButton.on('click', ()=> {
+        startButton.fadeOut('fast');
         running = true;
-        startButton.css('visibility', 'hidden');
         gameWindow.css("animation", `animatedBackground ${gameSpeedCount}s linear infinite`);
     });
 
