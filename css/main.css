@@ -2,8 +2,7 @@
 body {
     font-family: 'Bebas Neue', cursive;
     margin: 0px;
-    background-color: rgb(25,25,25);
-    background-image: url('https://media.contentapi.ea.com/content/dam/need-for-speed/nfs-heat/common/embed-images/nsfh-embed-screenshot-about-cops.jpg');
+    background-color: rgb(23, 23, 23);
     color: white;
     background-size: cover;
 }
